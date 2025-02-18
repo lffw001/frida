@@ -4,16 +4,16 @@ runs:
   using: composite
   steps:
     - name: Download iOS assets
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: ios-assets
         path: build/ios-assets/
     - name: Create frida-server iOS .deb
       run: |
-        mkdir -p build/release-assets
         cd build
+        mkdir -p release-assets
         for arch in arm arm64; do
-          ../frida-core/tools/package-server-fruity.sh \
+          ../subprojects/frida-core/tools/package-server-fruity.sh \
               iphoneos-$arch \
               ios-assets \
               release-assets/frida_${FRIDA_VERSION}_iphoneos-$arch.deb
